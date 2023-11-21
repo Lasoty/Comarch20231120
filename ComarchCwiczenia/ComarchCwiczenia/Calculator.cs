@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ComarchCwiczenia;
 
-internal class Calculator
+public class Calculator
 {
     public int Add(int x, int y)
     {
@@ -24,7 +24,8 @@ internal class Calculator
     }
 
     public float Divide(int x, int y) 
-    {  
+    {
+        if (y == 0) throw new ArgumentException($"Parametr {nameof(y)} nie może być równy 0.", nameof(y));
         return x / (float)y; 
     }
 

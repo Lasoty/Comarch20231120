@@ -10,55 +10,90 @@ namespace ComarchCwiczenia
         /// <param name="args">Argumenty startowe aplikacji.</param>
         static void Main(string[] args)
         {
-            ShowMenu();
-
-            Console.Write("Twój wybór: ");
-
-            if (int.TryParse(Console.ReadLine(), out int value))
+            bool closeApp = false;
+            do
             {
-                Calculator calculator = new Calculator();
+                ShowMenu();
 
-                int x = 0;
-                int y = 0;
+                Console.Write("Twój wybór: ");
 
-                switch (value)
+                if (int.TryParse(Console.ReadLine(), out int value))
                 {
-                    case 1:
-                        MeetMe();
-                        break;
-                    case 2:
-                        Sort();
-                        break;
-                    case 3:
-                        GetXY(out x, out y);
-                        int addResult = calculator.Add(x, y);
-                        Console.Write($"Wynik dodawania {x} i {y} to {addResult}");
-                        break;
-                    case 4:
-                        GetXY(out x, out y);
-                        int subResult = calculator.Subtract(x, y);
-                        Console.Write($"Wynik odejmowania {x} i {y} to {subResult}");
-                        break;
-                    case 5:
-                        GetXY(out x, out y);
-                        int multiResult = calculator.Multiply(x, y);
-                        Console.Write($"Wynik mnożenia {x} i {y} to {multiResult}");
-                        break;
-                    case 6:
-                        GetXY(out x, out y);
-                        float divResult = calculator.Divide(x, y);
-                        Console.Write($"Wynik dzielenia {x} i {y} to {divResult}");
-                        break;
-                    case 7:
-                        GetXY(out x, out y);
-                        int modResult = calculator.Modulo(x, y);
-                        Console.Write($"Wynik reszty z dzielenia {x} i {y} to {modResult}");
-                        break;
-                    default:
-                        Console.WriteLine("Nieprawidłowy wybór.");
-                        break;
+                    Calculator calculator = new Calculator();
+
+                    int x = 0;
+                    int y = 0;
+
+                    switch (value)
+                    {
+                        case 1:
+                            MeetMe();
+                            break;
+                        case 2:
+                            Sort();
+                            break;
+                        case 3:
+                            GetXY(out x, out y);
+                            int addResult = calculator.Add(x, y);
+                            Console.Write($"Wynik dodawania {x} i {y} to {addResult}");
+                            break;
+                        case 4:
+                            GetXY(out x, out y);
+                            int subResult = calculator.Subtract(x, y);
+                            Console.Write($"Wynik odejmowania {x} i {y} to {subResult}");
+                            break;
+                        case 5:
+                            GetXY(out x, out y);
+                            int multiResult = calculator.Multiply(x, y);
+                            Console.Write($"Wynik mnożenia {x} i {y} to {multiResult}");
+                            break;
+                        case 6:
+                            GetXY(out x, out y);
+                            try
+                            {
+                                float divResult = calculator.Divide(x, y);
+                                Console.Write($"Wynik dzielenia {x} i {y} to {divResult}");
+                            }
+                            catch (Exception ex)
+                            {
+                                ShowError(ex.Message);
+                                //throw;
+                            }
+                            break;
+                        case 7:
+                            GetXY(out x, out y);
+                            try
+                            {
+                                int modResult = calculator.Modulo(x, y);
+                                Console.Write($"Wynik reszty z dzielenia {x} i {y} to {modResult}");
+                            }
+                            catch (DivideByZeroException ex)
+                            {
+                                ShowError("Pamiętaj cholero! Nie dziel przez 0!.");                                
+                            }
+                            catch (Exception ex)
+                            {
+                                ShowError("Wystąpił nieprzewidziany wyjątek.");
+                            }
+                            break;
+                        default:
+                            Console.WriteLine("Nieprawidłowy wybór.");
+                            break;
+                    }
                 }
-            }
+                Console.ReadKey();
+
+                Console.Clear();
+                Console.Write("Czy chcesz zamknąć aplikację? [N | t]");
+                closeApp = Console.ReadKey().Key == ConsoleKey.T;
+            } while (!closeApp);
+        }
+
+        private static void ShowError(string msg)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(msg);
+            Console.ResetColor();
         }
 
         private static void GetXY(out int x, out int y)
