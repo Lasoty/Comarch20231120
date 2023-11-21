@@ -88,5 +88,16 @@ namespace ComarchCwiczenia.Tests
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+        [Test]
+        public void ModuloShouldThrowExceptionWhenYEqual0()
+        {
+            //Arrange
+            int x = 1; int y = 0;
+
+            //Assert
+            Assert.Throws<DivideByZeroException>(() => calclulator.Modulo(x, y));
+        }
+
     }
 }
