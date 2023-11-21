@@ -10,14 +10,17 @@ namespace ComarchCwiczenia
         /// <param name="args">Argumenty startowe aplikacji.</param>
         static void Main(string[] args)
         {
-            Console.WriteLine("KALKULATOR 1.0");
-            Console.WriteLine("1. Przedstaw się");
-            Console.WriteLine("2. Sortowanie");
+            ShowMenu();
 
             Console.Write("Twój wybór: ");
 
             if (int.TryParse(Console.ReadLine(), out int value))
             {
+                Calculator calculator = new Calculator();
+
+                int x = 0;
+                int y = 0;
+
                 switch (value)
                 {
                     case 1:
@@ -26,11 +29,57 @@ namespace ComarchCwiczenia
                     case 2:
                         Sort();
                         break;
+                    case 3:
+                        GetXY(out x, out y);
+                        int addResult = calculator.Add(x, y);
+                        Console.Write($"Wynik dodawania {x} i {y} to {addResult}");
+                        break;
+                    case 4:
+                        GetXY(out x, out y);
+                        int subResult = calculator.Subtract(x, y);
+                        Console.Write($"Wynik odejmowania {x} i {y} to {subResult}");
+                        break;
+                    case 5:
+                        GetXY(out x, out y);
+                        int multiResult = calculator.Multiply(x, y);
+                        Console.Write($"Wynik mnożenia {x} i {y} to {multiResult}");
+                        break;
+                    case 6:
+                        GetXY(out x, out y);
+                        float divResult = calculator.Divide(x, y);
+                        Console.Write($"Wynik dzielenia {x} i {y} to {divResult}");
+                        break;
+                    case 7:
+                        GetXY(out x, out y);
+                        int modResult = calculator.Modulo(x, y);
+                        Console.Write($"Wynik reszty z dzielenia {x} i {y} to {modResult}");
+                        break;
                     default:
                         Console.WriteLine("Nieprawidłowy wybór.");
                         break;
                 }
             }
+        }
+
+        private static void GetXY(out int x, out int y)
+        {
+            Console.Write("Podaj x: ");
+            x = int.Parse(Console.ReadLine());
+            Console.Write("Podaj y: ");
+            y = int.Parse(Console.ReadLine());
+        }
+
+        private static void ShowMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("KALKULATOR 1.0");
+            Console.WriteLine("1. Przedstaw się");
+            Console.WriteLine("2. Sortowanie");
+            Console.WriteLine("3. Dodawanie");
+            Console.WriteLine("4. Odejmowanie");
+            Console.WriteLine("5. Mnożenie");
+            Console.WriteLine("6. Dzielenie");
+            Console.WriteLine("7. Reszta z dzielenia");
         }
 
         private static void Sort()
