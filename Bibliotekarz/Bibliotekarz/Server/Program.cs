@@ -46,8 +46,12 @@ public class Program
         app.MapControllers();
         app.MapFallbackToFile("index.html");
 
-        var dbContext = app.Services.GetRequiredService<ApplicationDbContext>();
-        dbContext.Database.Migrate();
+        using (IServiceScope scope = app.Services.CreateScope())
+        {
+            using (var dbContext = scope.ServiceProvider.GetService<ApplicationDbContext>())
+                dbContext.Database.Migrate();
+        }
+
 
         app.Run();
     }

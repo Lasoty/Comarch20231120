@@ -1,0 +1,60 @@
+﻿@page "/books/add"
+
+<h3>Dodawanie nowej ksiązki</h3>
+
+<Div>
+    <Card Margin="Margin.Is4.FromBottom">
+        <CardHeader>
+            <CardTitle>Nowa książka</CardTitle>
+        </CardHeader>
+        <CardBody>
+            <Field Horizontal>
+                <FieldLabel ColumnSize="ColumnSize.IsFull.OnTablet.Is3.OnDesktop">Tytuł</FieldLabel>
+                <FieldBody ColumnSize="ColumnSize.IsFull.OnTablet.Is9.OnDesktop">
+                    <TextEdit Placeholder="Tytuł" @bind-Text="@Vm.Title" />
+                </FieldBody>
+            </Field>
+            
+            <Field Horizontal>
+                <FieldLabel ColumnSize="ColumnSize.IsFull.OnTablet.Is3.OnDesktop">Autor</FieldLabel>
+                <FieldBody ColumnSize="ColumnSize.IsFull.OnTablet.Is9.OnDesktop">
+                    <TextEdit @bind-Text="@Vm.Author" />
+                </FieldBody>
+            </Field>
+
+            <Field Horizontal>
+                <FieldLabel ColumnSize="ColumnSize.IsFull.OnTablet.Is3.OnDesktop">Liczba stron</FieldLabel>
+                <FieldBody ColumnSize="ColumnSize.IsFull.OnTablet.Is9.OnDesktop">
+                    <NumericEdit TValue="int" SelectAllOnFocus="false" @bind-Value="@Vm.PageCount" />
+                </FieldBody>
+            </Field>
+
+            <Field Horizontal>
+                <FieldLabel ColumnSize="ColumnSize.IsFull.OnTablet.Is3.OnDesktop">Czy wypożyczona</FieldLabel>
+                <FieldBody ColumnSize="ColumnSize.IsFull.OnTablet.Is9.OnDesktop">
+                    <Check TValue="bool" @bind-Checked="@Vm.IsBorrowed"></Check>
+                </FieldBody>
+            </Field>
+
+            <Field Horizontal>
+                <FieldLabel ColumnSize="ColumnSize.IsFull.OnTablet.Is3.OnDesktop">Imię wypożyczającego</FieldLabel>
+                <FieldBody ColumnSize="ColumnSize.IsFull.OnTablet.Is9.OnDesktop">
+                    <TextEdit @bind-Text="@Vm.Borrower.FirstName" />
+                </FieldBody>
+            </Field>
+            
+            <Field Horizontal>
+                <FieldLabel ColumnSize="ColumnSize.IsFull.OnTablet.Is3.OnDesktop">Nazwisko wypożyczającego</FieldLabel>
+                <FieldBody ColumnSize="ColumnSize.IsFull.OnTablet.Is9.OnDesktop">
+                    <TextEdit @bind-Text="@Vm.Borrower.LasttName" />
+                </FieldBody>
+            </Field>
+
+             <Field Horizontal JustifyContent="JustifyContent.End">
+                 <FieldBody ColumnSize="ColumnSize.Is9.Is3.WithOffset">
+                     <Button Color="Color.Primary" Clicked="@OnSaveClicked">Zapisz</Button>
+                 </FieldBody>
+             </Field>
+         </CardBody>
+     </Card>
+ </Div>
